@@ -1,0 +1,147 @@
+conky.config = {
+-- Conky, a system monitor, based on torsmo
+
+-- Any original torsmo code is licensed under the BSD license
+
+-- All code written since the fork of torsmo is licensed under the GPL
+
+-- Please see COPYING for details
+
+-- Copyright (c) 2004, Hannu Saransaari and Lauri Hakkarainen
+-- Copyright (c) 2005-2010 Brenden Matthews, Philip Kovacs, et. al. (see AUTHORS)
+-- All rights reserved.
+
+-- This program is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation, either version 3 of the License, or
+-- (at your option) any later version.
+
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+-- You should have received a copy of the GNU General Public License
+-- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+-- Configuration inspiré de la configuration gotham ainsi que des configurations
+-- conky_red et NightDrive pour le lua
+
+	update_interval = 1,
+	update_interval_on_battery = 30,
+
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+	diskio_avg_samples = 2,
+
+	background = true,
+	disable_auto_reload = false,
+
+	alignment = 'top_right',
+	gap_x = 10,
+	gap_y = 10,
+	minimum_width = 480,
+	maximum_width = 510,
+
+	own_window = true,
+	own_window_class = 'Conky',
+	own_window_type = 'normal',
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_argb_visual = true,
+	own_window_argb_value = 175,
+	own_window_transparent = true,
+
+	border_width = 1,
+	draw_borders = false,
+	stippled_borders = 0,
+	double_buffer = true,
+
+	out_to_console = false,
+	out_to_stderr = false,
+	extra_newline = false,
+
+	use_spacer = 'none',
+
+	use_xft = true,
+	font = 'Fantasque Sans Mono:pixelsize=16',
+	override_utf8_locale = true,
+	uppercase = false,
+
+	draw_graph_borders = false,
+	draw_outline = false,
+	draw_shades = false,
+
+	show_graph_scale = false,
+	show_graph_range = false,
+
+	format_human_readable = true,
+
+	default_color = 'white',
+	default_outline_color = '#0066ff',
+	default_shade_color = 'black',
+	color1 = '#eeffaa',
+	color2 = '#aaccff',
+	color3 = '#ff2a7f',
+	color4 = '#ff0000',
+	color5 = '#EAEAEA',
+	color6 = '#0066ff',
+	color7 = '#FFA300',
+	color8 = '#55d400',
+	color9 = '#b380ff',
+
+  lua_load = '/home/jip/.Conky/jip/jipconky.lua',
+  lua_draw_hook_post = 'main'
+};
+conky.text = [[
+${color5}${font GE Inspira:pixelsize=120}${time %H:%M}${voffset -50}${offset 10}${color7}${font GE Inspira:pixelsize=42}${time %d}${font GE Inspira:pixelsize=22}${color1}${time  %B} ${color6}${time %Y}${color8}${voffset 16}${font GE Inspira:pixelsize=58}${offset -148}${time %A}${voffset -32}
+${offset 4}${color2}${font GE Inspira:pixelsize=36}${nodename}
+${offset 118}${voffset -52}${color1}${font GE Inspira:pixelsize=18}${uptime}${color3} ${battery BAT1}
+${offset 118}${color9}${kernel} ${machine} ${font}${color7}$loadavg
+${offset 118}${color8}${font GE Inspira:pixelsize=16}HD > ${hddtemp /dev/sda}°C ${color1}MB > ${hwmon 0 temp 1}°C
+${if_up wlp2s0}${offset 4}${color6}${font GE Inspira:pixelsize=36}Réseau:${voffset -56}
+${offset 156}${font}IP: ${addr wlp2s0}
+${offset 156}MAC: ${wireless_ap wlp2s0}
+${offset 7}wlp2s0 > ${wireless_essid wlp2s0} > ${wireless_link_bar 12,256 wlp2s0} $alignr(${wireless_link_qual_perc wlp2s0}%)
+${offset 62}> Tx: ${upspeed wlp2s0} ${alignr}${totalup wlp2s0}
+${offset 184}${voffset -18}${upspeedgraph wlp2s0 12,240 00ff00 ff0000 -t -l}
+${offset 62}> Rx: ${downspeed wlp2s0} ${alignr}${totaldown wlp2s0}
+${offset 184}${voffset -18}${downspeedgraph wlp2s0 12,240 00ff00 ff0000 -t -l}$endif
+
+
+
+
+
+
+${voffset 4}
+${offset 116}${color4}SWAP $swap / $swapmax
+${offset 116}${color3}RAM $mem / $memmax
+${offset 116}${color1}CPU2 ${cpugraph cpu2 14,160 00ff00 ff0000 -t -l} > ${freq_g cpu2}GHz ${hwmon 1 temp 2}°C ${cpu cpu2}%
+${offset 116}${color2}CPU1 ${cpugraph cpu1 14,160 00ff00 ff0000 -t -l} > ${freq_g cpu1}GHz ${hwmon 1 temp 2}°C ${cpu cpu1}%
+${voffset -4}
+
+
+
+
+
+
+
+${voffset 14}
+${offset 184}${color8}/ > ${fs_used_perc /}% ${fs_used /}/${fs_size /}
+${offset 184}${color5}/boot > ${fs_used_perc /boot}% ${fs_used /boot}/${fs_size /boot}
+${offset 184}${color2}/home > ${fs_used_perc /home}% ${fs_used /home}/${fs_size /home}
+${offset 184}${color9}/usr > ${fs_used_perc /usr}% ${fs_used /usr}/${fs_size /usr}
+${offset 184}${color7}/usr/local > ${fs_used_perc /usr/local}% ${fs_used /usr/local}/${fs_size /usr/local}
+${offset 184}${color6}/var > ${fs_used_perc /var}% ${fs_used /var}/${fs_size /var}
+${voffset -14}
+
+
+${offset 226}* GPU   ${nvidia gpufreq}MHz (${nvidia gpufreqmin}-${nvidia gpufreqmax}MHz)
+${offset 226}* MEM   ${nvidia memfreq}MHz (${nvidia memfreqmin}-${nvidia memfreqmax}MHz)
+${offset 226}* MTR   ${nvidia mtrfreq}MHz (${nvidia mtrfreqmin}-${nvidia mtrfreqmax}MHz)
+${offset 226}* PERF  Level ${nvidia perflevel} (${nvidia perflevelmin}-${nvidia perflevelmax}), Mode: ${nvidia perfmode}
+${offset 226}* LOAD  GPU ${nvidia gpuutil}%, RAM ${nvidia membwutil}%
+${offset 226}* LOAD  VIDEO ${nvidia videoutil}%, PCIe ${nvidia pcieutil}%
+${offset 226}* VRAM  ${nvidia memutil}% (${nvidia memused}MB/${nvidia memtotal}MB)
+${offset 226}* TEMP  GPU ${nvidia gputemp}°C (${nvidia gputempthreshold}°C max)
+
+]];
