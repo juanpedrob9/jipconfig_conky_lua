@@ -135,13 +135,14 @@ ${offset 184}${color6}/var > ${fs_used_perc /var}% ${fs_used /var}/${fs_size /va
 ${voffset -14}
 
 
-${offset 226}* GPU   ${nvidia gpufreq}MHz (${nvidia gpufreqmin}-${nvidia gpufreqmax}MHz)
-${offset 226}* MEM   ${nvidia memfreq}MHz (${nvidia memfreqmin}-${nvidia memfreqmax}MHz)
-${offset 226}* MTR   ${nvidia mtrfreq}MHz (${nvidia mtrfreqmin}-${nvidia mtrfreqmax}MHz)
-${offset 226}* PERF  Level ${nvidia perflevel} (${nvidia perflevelmin}-${nvidia perflevelmax}), Mode: ${nvidia perfmode}
-${offset 226}* LOAD  GPU ${nvidia gpuutil}%, RAM ${nvidia membwutil}%
-${offset 226}* LOAD  VIDEO ${nvidia videoutil}%, PCIe ${nvidia pcieutil}%
-${offset 226}* VRAM  ${nvidia memutil}% (${nvidia memused}MB/${nvidia memtotal}MB)
-${offset 226}* TEMP  GPU ${nvidia gputemp}°C (${nvidia gputempthreshold}°C max)
-
+${offset 226}${color8} LOAD  GPU ${nvidia gpuutil}%, RAM ${nvidia membwutil}%
+${offset 226}${color9} LOAD  VIDEO ${nvidia videoutil}%, PCIe ${nvidia pcieutil}%
+${offset 226}${color3} VRAM  ${nvidia memutil}% (${nvidia memused}MB/${nvidia memtotal}MB)
+${offset 226}${color6} TEMP  GPU ${nvidia gputemp}°C (${nvidia gputempthreshold}°C max)
+${voffset 8}
+${offset 116}${color8}PERF Level ${nvidia perflevel} (${nvidia perflevelmin}-${nvidia perflevelmax}), Mode: ${nvidia perfmode}
+${offset 116}${color7}MTR ${nvidia mtrfreq}MHz (${nvidia mtrfreqmin}-${nvidia mtrfreqmax}MHz)
+${offset 116}${color4}GPU ${nvidia gpufreq}MHz (${nvidia gpufreqmin}-${nvidia gpufreqmax}MHz)
+${offset 116}${color1}MEM ${nvidia memfreq}MHz (${nvidia memfreqmin}-${nvidia memfreqmax}MHz)
+${voffset -8}
 ]];

@@ -392,22 +392,22 @@ gauge = {
     graph_fg_alpha=0.7,
     hand_fg_colour=0x55d400,
     hand_fg_alpha=1.0,
-    txt_radius=16,
-    txt_weight=1.0,
-    txt_size=10.0,
+    txt_radius=10,
+    txt_weight=0,
+    txt_size=16.0,
     txt_fg_colour=0x55d400,
-    txt_fg_alpha=1,
+    txt_fg_alpha=0,
     graduation_radius=14,
     graduation_thickness=2,
     graduation_mark_thickness=1,
     graduation_unit_angle=90,
-    graduation_fg_colour=0xFFFFFF,
+    graduation_fg_colour=0x55d400,
     graduation_fg_alpha=1,
     caption='perflevel max 3',
-    caption_weight=1,
-    caption_size=12.0,
-    caption_fg_colour=0xFFFFFF,
-    caption_fg_alpha=0.8,
+    caption_weight=0,
+    caption_size=14.0,
+    caption_fg_colour=0x55d400,
+    caption_fg_alpha=0,
   },
   {
     name='nvidia',
@@ -422,26 +422,26 @@ gauge = {
     graph_unit_thickness=2.7,
     graph_bg_colour=0xffffff,
     graph_bg_alpha=0.1,
-    graph_fg_colour=0xEAEAEA,
+    graph_fg_colour=0xFFA300,
     graph_fg_alpha=0.7,
-    hand_fg_colour=0xEAEAEA,
+    hand_fg_colour=0xFFA300,
     hand_fg_alpha=1.0,
     txt_radius=38,
     txt_weight=0,
     txt_size=8.0,
-    txt_fg_colour=0xEAEAEA,
+    txt_fg_colour=0xFFA300,
     txt_fg_alpha=0,
     graduation_radius=28,
     graduation_thickness=0,
     graduation_mark_thickness=1,
     graduation_unit_angle=27,
-    graduation_fg_colour=0xFFFFFF,
+    graduation_fg_colour=0xFFA300,
     graduation_fg_alpha=0.3,
     caption='mtrfreq max 800',
     caption_weight=1,
     caption_size=12.0,
-    caption_fg_colour=0xFFFFFF,
-    caption_fg_alpha=0.8,
+    caption_fg_colour=0xFFA300,
+    caption_fg_alpha=0,
   },
   {
     name='nvidia',
@@ -456,26 +456,26 @@ gauge = {
     graph_unit_thickness=2.7,
     graph_bg_colour=0xffffff,
     graph_bg_alpha=0.1,
-    graph_fg_colour=0xAACCFF,
+    graph_fg_colour=0xff0000,
     graph_fg_alpha=0.7,
-    hand_fg_colour=0xAACCFF,
+    hand_fg_colour=0xff0000,
     hand_fg_alpha=1.0,
     txt_radius=56,
     txt_weight=0,
     txt_size=12.0,
-    txt_fg_colour=0x000000,
+    txt_fg_colour=0xff0000,
     txt_fg_alpha=0,
     graduation_radius=28,
     graduation_thickness=0,
     graduation_mark_thickness=1,
     graduation_unit_angle=27,
-    graduation_fg_colour=0xFFFFFF,
+    graduation_fg_colour=0xff0000,
     graduation_fg_alpha=0.3,
     caption='gpufreq max 500',
     caption_weight=1,
     caption_size=12.0,
-    caption_fg_colour=0xFFFFFF,
-    caption_fg_alpha=0.8,
+    caption_fg_colour=0xff0000,
+    caption_fg_alpha=0,
   },
   {
     name='nvidia',
@@ -490,26 +490,26 @@ gauge = {
     graph_unit_thickness=2.7,
     graph_bg_colour=0xffffff,
     graph_bg_alpha=0.1,
-    graph_fg_colour=0xb380ff,
+    graph_fg_colour=0xeeffaa,
     graph_fg_alpha=0.7,
-    hand_fg_colour=0xb380ff,
+    hand_fg_colour=0xeeffaa,
     hand_fg_alpha=1.0,
     txt_radius=72,
     txt_weight=0,
     txt_size=12.0,
-    txt_fg_colour=0x000000,
+    txt_fg_colour=0xeeffaa,
     txt_fg_alpha=0,
     graduation_radius=28,
     graduation_thickness=0,
     graduation_mark_thickness=1,
     graduation_unit_angle=27,
-    graduation_fg_colour=0xFFFFFF,
+    graduation_fg_colour=0xeeffaa,
     graduation_fg_alpha=0.3,
     caption='memfreq max 400',
     caption_weight=1,
     caption_size=12.0,
-    caption_fg_colour=0xFFFFFF,
-    caption_fg_alpha=0.8,
+    caption_fg_colour=0xeeffaa,
+    caption_fg_alpha=0,
   },
 }
 
@@ -534,7 +534,7 @@ end
 --                                                              draw_gauge_ring
 -- displays gauges
 --
-function draw_gauge_ring(display, data, value)
+function draw_gauge_ring(cr, data, value)
   local max_value = data['max_value']
   local x, y = data['x'], data['y']
   local graph_radius = data['graph_radius']
@@ -544,25 +544,36 @@ function draw_gauge_ring(display, data, value)
   local graph_bg_colour, graph_bg_alpha = data['graph_bg_colour'], data['graph_bg_alpha']
   local graph_fg_colour, graph_fg_alpha = data['graph_fg_colour'], data['graph_fg_alpha']
   local hand_fg_colour, hand_fg_alpha = data['hand_fg_colour'], data['hand_fg_alpha']
-  local graph_end_angle = (max_value * graph_unit_angle) % 360
+  local graph_end_angle = 0
+
+  if max_value ~= 100 then
+    graph_end_angle = (100 * graph_unit_angle) % 360
+  else
+    graph_end_angle = (max_value * graph_unit_angle) % 360
+  end
 
   -- background ring
-  cairo_arc(display, x, y, graph_radius, angle_to_position(graph_start_angle, 0), angle_to_position(graph_start_angle, graph_end_angle))
-  cairo_set_source_rgba(display, rgb_to_r_g_b(graph_bg_colour, graph_bg_alpha))
-  cairo_set_line_width(display, graph_thickness)
-  cairo_stroke(display)
+  cairo_arc(cr, x, y, graph_radius, angle_to_position(graph_start_angle, 0), angle_to_position(graph_start_angle, graph_end_angle))
+  cairo_set_source_rgba(cr, rgb_to_r_g_b(graph_bg_colour, graph_bg_alpha))
+  cairo_set_line_width(cr, graph_thickness)
+  cairo_stroke(cr)
 
   -- arc of value
-  local val = value % (max_value + 1)
+  local val = 0
+  if max_value < 100 then
+    val = value % 101
+  else
+    val = value % (max_value + 1)
+  end
   local start_arc = 0
   local stop_arc = 0
   local i = 1
   while i <= val do
     start_arc = (graph_unit_angle * i) - graph_unit_thickness
     stop_arc = (graph_unit_angle * i)
-    cairo_arc(display, x, y, graph_radius, angle_to_position(graph_start_angle, start_arc), angle_to_position(graph_start_angle, stop_arc))
-    cairo_set_source_rgba(display, rgb_to_r_g_b(graph_fg_colour, graph_fg_alpha))
-    cairo_stroke(display)
+    cairo_arc(cr, x, y, graph_radius, angle_to_position(graph_start_angle, start_arc), angle_to_position(graph_start_angle, stop_arc))
+    cairo_set_source_rgba(cr, rgb_to_r_g_b(graph_fg_colour, graph_fg_alpha))
+    cairo_stroke(cr)
     i = i + 1
   end
   local angle = start_arc
@@ -570,9 +581,9 @@ function draw_gauge_ring(display, data, value)
   -- hand
   start_arc = (graph_unit_angle * val) - (graph_unit_thickness * 2)
   stop_arc = (graph_unit_angle * val)
-  cairo_arc(display, x, y, graph_radius, angle_to_position(graph_start_angle, start_arc), angle_to_position(graph_start_angle, stop_arc))
-  cairo_set_source_rgba(display, rgb_to_r_g_b(hand_fg_colour, hand_fg_alpha))
-  cairo_stroke(display)
+  cairo_arc(cr, x, y, graph_radius, angle_to_position(graph_start_angle, start_arc), angle_to_position(graph_start_angle, stop_arc))
+  cairo_set_source_rgba(cr, rgb_to_r_g_b(hand_fg_colour, hand_fg_alpha))
+  cairo_stroke(cr)
 
   -- graduations marks
   local graduation_radius = data['graduation_radius']
@@ -583,13 +594,13 @@ function draw_gauge_ring(display, data, value)
     local nb_graduation = graph_end_angle / graduation_unit_angle
     local i = 0
     while i < nb_graduation do
-      cairo_set_line_width(display, graduation_thickness)
+      cairo_set_line_width(cr, graduation_thickness)
       start_arc = (graduation_unit_angle * i) - (graduation_mark_thickness / 2)
       stop_arc = (graduation_unit_angle * i) + (graduation_mark_thickness / 2)
-      cairo_arc(display, x, y, graduation_radius, angle_to_position(graph_start_angle, start_arc), angle_to_position(graph_start_angle, stop_arc))
-      cairo_set_source_rgba(display,rgb_to_r_g_b(graduation_fg_colour,graduation_fg_alpha))
-      cairo_stroke(display)
-      cairo_set_line_width(display, graph_thickness)
+      cairo_arc(cr, x, y, graduation_radius, angle_to_position(graph_start_angle, start_arc), angle_to_position(graph_start_angle, stop_arc))
+      cairo_set_source_rgba(cr,rgb_to_r_g_b(graduation_fg_colour,graduation_fg_alpha))
+      cairo_stroke(cr)
+      cairo_set_line_width(cr, graph_thickness)
       i = i + 1
     end
   end
@@ -600,12 +611,12 @@ function draw_gauge_ring(display, data, value)
   local txt_fg_colour, txt_fg_alpha = data['txt_fg_colour'], data['txt_fg_alpha']
   local movex = txt_radius * math.cos(angle_to_position(graph_start_angle, angle))
   local movey = txt_radius * math.sin(angle_to_position(graph_start_angle, angle))
-  cairo_select_font_face (display, "Ubuntu Mono", CAIRO_FONT_SLANT_NORMAL, txt_weight)
-  cairo_set_font_size (display, txt_size)
-  cairo_set_source_rgba (display, rgb_to_r_g_b(txt_fg_colour, txt_fg_alpha))
-  cairo_move_to (display, x + movex - (txt_size / 2), y + movey + 3)
-  cairo_show_text (display, value)
-  cairo_stroke (display)
+  cairo_select_font_face (cr, "Ubuntu Mono", CAIRO_FONT_SLANT_NORMAL, txt_weight)
+  cairo_set_font_size (cr, txt_size)
+  cairo_set_source_rgba (cr, rgb_to_r_g_b(txt_fg_colour, txt_fg_alpha))
+  cairo_move_to (cr, x + movex - (txt_size / 2), y + movey + 3)
+  cairo_show_text (cr, value)
+  cairo_stroke (cr)
 
   -- caption
   local caption = data['caption']
@@ -613,24 +624,24 @@ function draw_gauge_ring(display, data, value)
   local caption_fg_colour, caption_fg_alpha = data['caption_fg_colour'], data['caption_fg_alpha']
   local tox = graph_radius * (math.cos((graph_start_angle * 2 * math.pi / 360)-(math.pi/2)))
   local toy = graph_radius * (math.sin((graph_start_angle * 2 * math.pi / 360)-(math.pi/2)))
-  cairo_select_font_face (display, "Fantasque Sans Mono", CAIRO_FONT_SLANT_NORMAL, caption_weight);
-  cairo_set_font_size (display, caption_size)
-  cairo_set_source_rgba (display, rgb_to_r_g_b(caption_fg_colour, caption_fg_alpha))
-  cairo_move_to (display, x + tox + 5, y + toy + 1)
+  cairo_select_font_face (cr, "Fantasque Sans Mono", CAIRO_FONT_SLANT_NORMAL, caption_weight);
+  cairo_set_font_size (cr, caption_size)
+  cairo_set_source_rgba (cr, rgb_to_r_g_b(caption_fg_colour, caption_fg_alpha))
+  cairo_move_to (cr, x + tox + 5, y + toy + 1)
   -- bad hack but not enough time !
   if graph_start_angle < 105 then
-    cairo_move_to (display, x + tox - 30, y + toy + 1)
+    cairo_move_to (cr, x + tox - 30, y + toy + 1)
   end
-  cairo_show_text (display, caption)
-  cairo_stroke (display)
+  cairo_show_text (cr, caption)
+  cairo_stroke (cr)
 end
 
 -------------------------------------------------------------------------------
 --                                                               go_gauge_rings
 -- loads data and displays gauges
 --
-function go_gauge_rings(display)
-  local function load_gauge_rings(display, data)
+function go_gauge_rings(cr)
+  local function load_gauge_rings(cr, data)
     local str, value = '', 0
 
     str = string.format('${%s %s}',data['name'], data['arg'])
@@ -641,16 +652,16 @@ function go_gauge_rings(display)
 
     if data['max_value'] ~= 100 then
       value = (value / data['max_value']) * 100
-      data['max_value'] = 100
+  --    data['max_value'] = 100
     end
-    draw_gauge_ring(display, data, value)
+
+    draw_gauge_ring(cr, data, value)
   end
 
   for i in pairs(gauge) do
-    load_gauge_rings(display, gauge[i])
+    load_gauge_rings(cr, gauge[i])
   end
 end
-
 -------------------------------------------------------------------------------
 --                                                                         MAIN
 function conky_main()
@@ -662,12 +673,12 @@ function conky_main()
                                        conky_window.visual,
                                        conky_window.width,
                                        conky_window.height)
-  display = cairo_create(cs)
+  cr = cairo_create(cs)
   local updates=tonumber(conky_parse('${updates}'))
   if updates>5 then
-    go_gauge_rings(display)
+    go_gauge_rings(cr)
   end
-  cairo_destroy(display)
+  cairo_destroy(cr)
   cairo_surface_destroy(cs)
   display=nil
 end
