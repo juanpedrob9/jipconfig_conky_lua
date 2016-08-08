@@ -38,18 +38,18 @@ conky.config = {
 	disable_auto_reload = false,
 
 	alignment = 'top_right',
-	gap_x = 10,
-	gap_y = 10,
+	gap_x = 0,
+	gap_y = 0,
 	minimum_width = 480,
-	maximum_width = 510,
+	maximum_width = 530,
 
 	own_window = true,
 	own_window_class = 'Conky',
 	own_window_type = 'normal',
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 	own_window_argb_visual = true,
-	own_window_argb_value = 175,
-	own_window_transparent = true,
+	own_window_argb_value = 125,
+	own_window_transparent = false,
 
 	border_width = 1,
 	draw_borders = false,
@@ -76,18 +76,18 @@ conky.config = {
 
 	format_human_readable = true,
 
-	default_color = 'white',
-	default_outline_color = '#0066ff',
-	default_shade_color = 'black',
-	color1 = '#eeffaa',
-	color2 = '#aaccff',
-	color3 = '#ff2a7f',
-	color4 = '#ff0000',
-	color5 = '#EAEAEA',
-	color6 = '#0066ff',
-	color7 = '#FFA300',
-	color8 = '#55d400',
-	color9 = '#b380ff',
+  default_color = 'white',
+  default_outline_color = '#0066ff',
+  default_shade_color = 'black',
+  color1 = '#eeffaa',
+  color2 = '#aaccff',
+  color3 = '#ff2a7f',
+  color4 = '#ff0000',
+  color5 = '#EAEAEA',
+  color6 = '#0066ff',
+  color7 = '#FFA300',
+  color8 = '#55d400',
+  color9 = '#b380ff',
 
   lua_load = '/home/jip/.Conky/jip/jipconky.lua',
   lua_draw_hook_post = 'main'
@@ -101,11 +101,11 @@ ${offset 118}${color8}${font GE Inspira:pixelsize=16}HD > ${hddtemp /dev/sda}°C
 ${if_up wlp2s0}${offset 4}${color6}${font GE Inspira:pixelsize=36}Réseau:${voffset -56}
 ${offset 156}${font}IP: ${addr wlp2s0}
 ${offset 156}MAC: ${wireless_ap wlp2s0}
-${offset 7}wlp2s0 > ${wireless_essid wlp2s0} > ${wireless_link_bar 12,256 wlp2s0} $alignr(${wireless_link_qual_perc wlp2s0}%)
+${offset 7}wlp2s0 > ${wireless_essid wlp2s0} > ${wireless_link_bar 12,240 wlp2s0} $alignr(${wireless_link_qual_perc wlp2s0}%)
 ${offset 62}> Tx: ${upspeed wlp2s0} ${alignr}${totalup wlp2s0}
-${offset 184}${voffset -18}${upspeedgraph wlp2s0 12,240 00ff00 ff0000 -t -l}
+${offset 191}${voffset -18}${upspeedgraph wlp2s0 12,240 00ff00 ff0000 -t -l}
 ${offset 62}> Rx: ${downspeed wlp2s0} ${alignr}${totaldown wlp2s0}
-${offset 184}${voffset -18}${downspeedgraph wlp2s0 12,240 00ff00 ff0000 -t -l}$endif
+${offset 191}${voffset -18}${downspeedgraph wlp2s0 12,240 00ff00 ff0000 -t -l}$endif
 
 
 
