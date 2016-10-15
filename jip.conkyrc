@@ -37,18 +37,18 @@ conky.config = {
 	background = true,
 	disable_auto_reload = false,
 
-	alignment = 'top_right',
+	alignment = 'top_left',
 	gap_x = 0,
 	gap_y = 0,
-	minimum_width = 480,
-	maximum_width = 530,
+	minimum_width = 1250,
+	maximum_width = 1600,
 
 	own_window = true,
 	own_window_class = 'Conky',
 	own_window_type = 'normal',
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 	own_window_argb_visual = true,
-	own_window_argb_value = 125,
+	own_window_argb_value = 0,
 	own_window_transparent = false,
 
 	border_width = 1,
@@ -93,56 +93,58 @@ conky.config = {
   lua_draw_hook_post = 'main'
 };
 conky.text = [[
-${color5}${font GE Inspira:pixelsize=120}${time %H:%M}${voffset -50}${offset 10}${color9}${font GE Inspira:pixelsize=42}${time %d}${font GE Inspira:pixelsize=22}${color1}${time  %B} ${color6}${time %Y}${color7}${voffset 16}${font GE Inspira:pixelsize=58}${offset -148}${time %A}${voffset -32}
-${offset 4}${color2}${font GE Inspira:pixelsize=36}${nodename}
-${offset 118}${voffset -52}${color8}${font GE Inspira:pixelsize=18}${uptime}${color3} ${battery BAT1}
-${offset 118}${color9}${kernel} ${machine} ${font}${color7}$loadavg
-${offset 118}${color1}${font GE Inspira:pixelsize=16}HD > ${hddtemp /dev/sda}°C ${color8}MB > ${hwmon 0 temp 1}°C
-${if_up wlp2s0}${offset 4}${color5}${font GE Inspira:pixelsize=36}Réseau:${voffset -56}
-${offset 156}${font}IP: ${addr wlp2s0}
-${offset 156}MAC: ${wireless_ap wlp2s0}
-${offset 7}wlp2s0 > ${wireless_essid wlp2s0} > ${wireless_link_bar 12,240 wlp2s0} $alignr(${wireless_link_qual_perc wlp2s0}%)
-${offset 62}> Tx: ${upspeed wlp2s0} ${alignr}${totalup wlp2s0}
+${offset 946}${color2}${font GE Inspira:pixelsize=36}${nodename}
+${offset 946}${color8}${font GE Inspira:pixelsize=18}${voffset -54}${offset 112}${kernel} ${color1}${machine}
+${offset 1058}${color5}baterie ${battery BAT1}${font}
+${offset 946}${color6}MB > ${hwmon 0 temp 1}°C
+${offset 946}${color9}HD > ${hddtemp /dev/sda}°C
+${offset 946}${color7}uptime ${uptime}
+${offset 856}${color8}$loadavg
+${offset 856}${color5}SWAP $swap / $swapmax
+${offset 856}${color3}RAM $mem / $memmax
+${offset 856}${color1}CPU2 ${cpugraph cpu2 14,160 00ff00 ff0000 -t -l} > ${freq_g cpu2}GHz ${hwmon 1 temp 2}°C ${cpu cpu2}%
+${offset 856}${color2}CPU1 ${cpugraph cpu1 14,160 00ff00 ff0000 -t -l} > ${freq_g cpu1}GHz ${hwmon 1 temp 2}°C ${cpu cpu1}%
+${voffset -204}
+${color5}${font GE Inspira:pixelsize=120}${time %H:%M}${voffset -102}
+${offset 4}${font GE Inspira:pixelsize=28}${color7}${time %A}
+${offset 4}${color9}${time %d}
+${offset 4}${color1}${time  %B}
+${offset 4}${color6}${time %Y}${font}
+
+${voffset -246}
+${offset 578}${color4}combiné  > ${diskio /dev/sda}
+${offset 578}${diskiograph /dev/sda 14,160 00ff00 ff0000 -t -l}
+${offset 578}${color2}lecture  > ${diskio_read /dev/sda}
+${offset 578}${diskiograph_read /dev/sda 14,160 00ff00 ff0000 -t -l}
+${offset 578}${color3}écriture > ${diskio_write /dev/sda}
+${offset 578}${diskiograph_write /dev/sda 14,160 00ff00 ff0000 -t -l}${voffset 20}
+${offset 458}${color8}/(root)    > ${fs_used_perc /}% ${fs_used /}/${fs_size /}
+${offset 458}${color5}/boot      > ${fs_used_perc /boot}% ${fs_used /boot}/${fs_size /boot}
+${offset 458}${color2}/home      > ${fs_used_perc /home}% ${fs_used /home}/${fs_size /home}
+${offset 458}${color9}/usr       > ${fs_used_perc /usr}% ${fs_used /usr}/${fs_size /usr}
+${offset 458}${color7}/usr/local > ${fs_used_perc /usr/local}% ${fs_used /usr/local}/${fs_size /usr/local}
+${offset 458}${color6}/var       > ${fs_used_perc /var}% ${fs_used /var}/${fs_size /var}
+${voffset 34}
+${if_up wlp2s0}${offset 4}${color5}${font GE Inspira:pixelsize=36}réseau <${voffset -54}
+${offset 128}${font} IP  - ${addr wlp2s0}
+${offset 128} MAC - ${wireless_ap wlp2s0}
+${offset 6}wlp2s0 > ${wireless_essid wlp2s0}
+${offset 62}> signal
+${offset 191}${voffset -18}${wireless_link_bar 12,240 wlp2s0} ${alignr}${offset -730}${wireless_link_qual_perc wlp2s0}%
+${offset 62}> Tx: ${upspeed wlp2s0} ${alignr}${offset -730}${totalup wlp2s0}
 ${offset 191}${voffset -18}${upspeedgraph wlp2s0 12,240 00ff00 ff0000 -t -l}
-${offset 62}> Rx: ${downspeed wlp2s0} ${alignr}${totaldown wlp2s0}
+${offset 62}> Rx: ${downspeed wlp2s0} ${alignr}${offset -730}${totaldown wlp2s0}
 ${offset 191}${voffset -18}${downspeedgraph wlp2s0 12,240 00ff00 ff0000 -t -l}$endif
 
-
-
-
-
-
-${voffset 4}
-${offset 116}${color4}SWAP $swap / $swapmax
-${offset 116}${color3}RAM $mem / $memmax
-${offset 116}${color1}CPU2 ${cpugraph cpu2 14,160 00ff00 ff0000 -t -l} > ${freq_g cpu2}GHz ${hwmon 1 temp 2}°C ${cpu cpu2}%
-${offset 116}${color2}CPU1 ${cpugraph cpu1 14,160 00ff00 ff0000 -t -l} > ${freq_g cpu1}GHz ${hwmon 1 temp 2}°C ${cpu cpu1}%
-${voffset -4}
-
-
-
-
-
-
-
-${voffset 14}
-${offset 184}${color8}/ > ${fs_used_perc /}% ${fs_used /}/${fs_size /}
-${offset 184}${color5}/boot > ${fs_used_perc /boot}% ${fs_used /boot}/${fs_size /boot}
-${offset 184}${color2}/home > ${fs_used_perc /home}% ${fs_used /home}/${fs_size /home}
-${offset 184}${color9}/usr > ${fs_used_perc /usr}% ${fs_used /usr}/${fs_size /usr}
-${offset 184}${color7}/usr/local > ${fs_used_perc /usr/local}% ${fs_used /usr/local}/${fs_size /usr/local}
-${offset 184}${color6}/var > ${fs_used_perc /var}% ${fs_used /var}/${fs_size /var}
-${voffset -14}
-
-
-${offset 226}${color8} LOAD  GPU ${nvidia gpuutil}%, RAM ${nvidia membwutil}%
-${offset 226}${color9} LOAD  VIDEO ${nvidia videoutil}%, PCIe ${nvidia pcieutil}%
-${offset 226}${color3} VRAM  ${nvidia memutil}% (${nvidia memused}MB/${nvidia memtotal}MB)
-${offset 226}${color6} TEMP  GPU ${nvidia gputemp}°C (${nvidia gputempthreshold}°C max)
+${voffset -150}
+${offset 826}${color8} LOAD  GPU ${nvidia gpuutil}%, RAM ${nvidia membwutil}%
+${offset 826}${color9} LOAD  VIDEO ${nvidia videoutil}%, PCIe ${nvidia pcieutil}%
+${offset 826}${color2} VRAM  ${nvidia memutil}% (${nvidia memused}MB/${nvidia memtotal}MB)
+${offset 826}${color5} TEMP  GPU ${nvidia gputemp}°C (${nvidia gputempthreshold}°C max)
 ${voffset 8}
-${offset 116}${color8}PERF Level ${nvidia perflevel} (${nvidia perflevelmin}-${nvidia perflevelmax}), Mode: ${nvidia perfmode}
-${offset 116}${color7}MTR ${nvidia mtrfreq}MHz (${nvidia mtrfreqmin}-${nvidia mtrfreqmax}MHz)
-${offset 116}${color4}GPU ${nvidia gpufreq}MHz (${nvidia gpufreqmin}-${nvidia gpufreqmax}MHz)
-${offset 116}${color1}MEM ${nvidia memfreq}MHz (${nvidia memfreqmin}-${nvidia memfreqmax}MHz)
+${offset 716}${color8}PERF Level ${nvidia perflevel} (${nvidia perflevelmin}-${nvidia perflevelmax}), Mode: ${nvidia perfmode}
+${offset 716}${color7}MTR ${nvidia mtrfreq}MHz (${nvidia mtrfreqmin}-${nvidia mtrfreqmax}MHz)
+${offset 716}${color3}GPU ${nvidia gpufreq}MHz (${nvidia gpufreqmin}-${nvidia gpufreqmax}MHz)
+${offset 716}${color1}MEM ${nvidia memfreq}MHz (${nvidia memfreqmin}-${nvidia memfreqmax}MHz)
 ${voffset -8}
 ]];
