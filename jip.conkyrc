@@ -102,8 +102,8 @@ ${offset 946}${color7}uptime ${uptime}
 ${offset 856}${color8}$loadavg
 ${offset 856}${color5}SWAP $swap / $swapmax
 ${offset 856}${color3}RAM $mem / $memmax
-${offset 856}${color1}CPU2 ${cpugraph cpu2 14,160 00ff00 ff0000 -t -l} > ${freq_g cpu2}GHz ${hwmon 2 temp 3}°C ${cpu cpu2}%
-${offset 856}${color2}CPU1 ${cpugraph cpu1 14,160 00ff00 ff0000 -t -l} > ${freq_g cpu1}GHz ${hwmon 2 temp 2}°C ${cpu cpu1}%
+${offset 856}${color1}CPU2 ${cpugraph cpu2 14,160 00ff00 ff0000 -t -l} > ${freq_g cpu2}GHz ${hwmon 1 temp 3}°C ${cpu cpu2}%
+${offset 856}${color2}CPU1 ${cpugraph cpu1 14,160 00ff00 ff0000 -t -l} > ${freq_g cpu1}GHz ${hwmon 1 temp 2}°C ${cpu cpu1}%
 ${voffset -204}
 ${color5}${font GE Inspira:pixelsize=120}${time %H:%M}${voffset -102}
 ${offset 4}${font GE Inspira:pixelsize=28}${color7}${time %A}
