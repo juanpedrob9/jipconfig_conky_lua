@@ -93,19 +93,24 @@ conky.config = {
   lua_draw_hook_post = 'main'
 };
 conky.text = [[
-${offset 946}${color2}${font GE Inspira:pixelsize=36}${nodename}
-${offset 946}${color8}${font GE Inspira:pixelsize=18}${voffset -54}${offset 112}${kernel}
-${offset 1058}${color5}baterie ${battery BAT1}${font}
-${offset 1058}${color1}${font Anka/Coder:pixelsize=14}${machine}${font}
-${offset 946}${color6}MB > ${hwmon 0 temp 1}°C
-${offset 946}${color9}HD > ${hddtemp /dev/sda}°C
-${offset 946}${color7}uptime ${uptime}
-
+${voffset 8}
+${offset 1100}${color2}${font GE Inspira:pixelsize=36}${nodename}
+${voffset -48}
+${offset 1236}${color8}${font GE Inspira:pixelsize=18}${kernel}
+${offset 1236}${color5}baterie ${battery BAT1}${font}
+${offset 1236}${color1}${font Anka/Coder:pixelsize=14}${machine}${font}
+${offset 1236}${color2}MB  > ${hwmon 0 temp 1}°C
+${offset 1236}${color9}HHD > ${hddtemp /dev/sda}°C
+${offset 1236}${color}SSD > ${hddtemp /dev/sdb}°C
+${offset 1236}${color7}uptime ${uptime}
+${voffset -58}
 ${offset 856}${color5}SWAP $swap / $swapmax
 ${offset 856}${color3}RAM $mem / $memmax
-${offset 856}${color1}CPU2 ${cpugraph cpu2 14,160 00ff00 eeffaa -t -l} > ${freq_g cpu2}GHz ${hwmon 1 temp 3}°C ${cpu cpu2}%
-${offset 856}${color2}CPU1 ${cpugraph cpu1 14,160 00ff00 aaccff -t -l} > ${freq_g cpu1}GHz ${hwmon 1 temp 2}°C ${cpu cpu1}%
-${voffset -204}
+${offset 856}${color1}CPU1 ${cpugraph cpu1 14,160 00ff00 eeffaa -t -l} > ${freq_g cpu1}GHz ${hwmon 2 temp 2}°C ${cpu cpu1}%
+${offset 856}${color2}CPU2 ${cpugraph cpu2 14,160 00ff00 aaccff -t -l} > ${freq_g cpu2}GHz ${hwmon 2 temp 3}°C ${cpu cpu2}%
+${offset 856}${color7}CPU3 ${cpugraph cpu3 14,160 eeffaa aaccff -t -l} > ${freq_g cpu3}GHz VIRT ${cpu cpu3}%
+${offset 856}${color8}CPU4 ${cpugraph cpu4 14,160 55d400 aaccff -t -l} > ${freq_g cpu4}GHz VIRT ${cpu cpu4}%
+${voffset -264}
 ${color5}${font GE Inspira:pixelsize=120}${time %H:%M}${voffset -102}
 ${offset 4}${font GE Inspira:pixelsize=28}${color7}${time %A}
 ${offset 4}${color9}${time %d}
@@ -119,36 +124,36 @@ ${offset 578}${color2}lecture  > ${diskio_read /dev/sda}
 ${offset 578}${diskiograph_read /dev/sda 14,160 00ff00 aaccff -t -l}
 ${offset 578}${color3}écriture > ${diskio_write /dev/sda}
 ${offset 578}${diskiograph_write /dev/sda 14,160 00ff00 ff2a7f -t -l}${voffset 20}
-${offset 458}${color8}/(root)    > ${fs_used_perc /}% ${fs_used /}/${fs_size /}
-${offset 458}${color5}/boot      > ${fs_used_perc /boot}% ${fs_used /boot}/${fs_size /boot}
-${offset 458}${color2}/home      > ${fs_used_perc /home}% ${fs_used /home}/${fs_size /home}
-${offset 458}${color9}/opt       > ${fs_used_perc /opt}% ${fs_used /opt}/${fs_size /opt}
-${offset 458}${color7}/usr       > ${fs_used_perc /usr}% ${fs_used /usr}/${fs_size /usr}
-${offset 458}${color6}/var       > ${fs_used_perc /var}% ${fs_used /var}/${fs_size /var}
+${offset 458}${color8}/(root)  > ${fs_used_perc /}% ${fs_used /}/${fs_size /}
+${offset 458}${color5}/tmp     > ${fs_used_perc /tmp}% ${fs_used /tmp}/${fs_size /tmp}
+${offset 458}${color2}/home    > ${fs_used_perc /home}% ${fs_used /home}/${fs_size /home}
+${offset 458}${color9}/opt     > ${fs_used_perc /opt}% ${fs_used /opt}/${fs_size /opt}
+${offset 458}${color7}/usr     > ${fs_used_perc /usr}% ${fs_used /usr}/${fs_size /usr}
+${offset 458}${color6}/var     > ${fs_used_perc /var}% ${fs_used /var}/${fs_size /var}
 
 ${offset 4}${color5}${font GE Inspira:pixelsize=36}réseau <${voffset -54}
-${offset 132}${font} IP  - ${addr wlp2s0}
-${offset 132} MAC - ${wireless_ap wlp2s0}
-${offset 6}${color3}wlp2s0 > ${wireless_essid wlp2s0}
+${offset 132}${font} IP  - ${addr wlp3s0}
+${offset 132} MAC - ${wireless_ap wlp3s0}
+${offset 6}${color3}wlp3s0 > ${wireless_essid wlp3s0}
 ${offset 62}${color8}> signal
-${offset 191}${voffset -18}${wireless_link_bar 12,240 wlp2s0} ${alignr}${offset -730}${wireless_link_qual_perc wlp2s0}%
-${offset 62}${color7}> Tx: ${upspeed wlp2s0} ${alignr}${offset -730}${totalup wlp2s0}
-${offset 191}${voffset -18}${upspeedgraph wlp2s0 12,240 00ff00 FFA300 -t -l}
-${offset 62}${color9}> Rx: ${downspeed wlp2s0} ${alignr}${offset -730}${totaldown wlp2s0}
-${offset 191}${voffset -18}${downspeedgraph wlp2s0 12,240 00ff00 b380ff -t -l}
-${voffset -126}
+${offset 191}${voffset -18}${wireless_link_bar 12,240 wlp3s0} ${alignr}${offset -880}${wireless_link_qual_perc wlp3s0}%
+${offset 62}${color7}> Tx: ${upspeed wlp3s0} ${alignr}${offset -880}${totalup wlp3s0}
+${offset 191}${voffset -18}${upspeedgraph wlp3s0 12,240 00ff00 FFA300 -t -l}
+${offset 62}${color9}> Rx: ${downspeed wlp3s0} ${alignr}${offset -880}${totaldown wlp3s0}
+${offset 191}${voffset -18}${downspeedgraph wlp3s0 12,240 00ff00 b380ff -t -l}
+${voffset -120}
 ${offset 724}${color1}Processes:$color $processes  \
 ${color1}Running:$color $running_processes ${color1} Load AVG: $color$loadavg
-${offset 620}${color2}Top CPU              PID   CPU%$color | \
+${offset 720}${color2}Top CPU              PID   CPU%$color | \
 ${color2}Top MEM              PID   MEM%
-${offset 620}${color9}1 ${top     name 1} ${top     pid 1} ${top     cpu 1}$color | \
+${offset 720}${color9}1 ${top     name 1} ${top     pid 1} ${top     cpu 1}$color | \
 ${color9}1 ${top_mem name 1} ${top_mem pid 1} ${top_mem mem 1}
-${offset 620}${color7}2 ${top     name 2} ${top     pid 2} ${top     cpu 2}$color | \
+${offset 720}${color7}2 ${top     name 2} ${top     pid 2} ${top     cpu 2}$color | \
 ${color7}2 ${top_mem name 2} ${top_mem pid 2} ${top_mem mem 2}
-${offset 620}${color8}3 ${top     name 3} ${top     pid 3} ${top     cpu 3}$color | \
+${offset 720}${color8}3 ${top     name 3} ${top     pid 3} ${top     cpu 3}$color | \
 ${color8}3 ${top_mem name 3} ${top_mem pid 3} ${top_mem mem 3}
-${offset 620}${color1}4 ${top     name 4} ${top     pid 4} ${top     cpu 4}$color | \
+${offset 720}${color1}4 ${top     name 4} ${top     pid 4} ${top     cpu 4}$color | \
 ${color1}4 ${top_mem name 4} ${top_mem pid 4} ${top_mem mem 4}
-${offset 620}${color5}5 ${top     name 5} ${top     pid 5} ${top     cpu 5}$color | \
+${offset 720}${color5}5 ${top     name 5} ${top     pid 5} ${top     cpu 5}$color | \
 ${color5}5 ${top_mem name 5} ${top_mem pid 5} ${top_mem mem 5}
 ]];
