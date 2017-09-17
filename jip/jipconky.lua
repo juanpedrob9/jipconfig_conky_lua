@@ -241,7 +241,7 @@ gauge = {
   },
   {
     name='fs_used_perc',
-    arg='/',
+    arg='/tmp',
     max_value=100,
     x=455,
     y=144,
@@ -275,7 +275,7 @@ gauge = {
   },
   {
     name='fs_used_perc',
-    arg='/tmp',
+    arg='/',
     max_value=100,
     x=455,
     y=144,
